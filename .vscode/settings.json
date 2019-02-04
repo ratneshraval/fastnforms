@@ -1,0 +1,6 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "tslint.autoFixOnSave": true,
+  "eslint.autoFixOnSave": true
+}
