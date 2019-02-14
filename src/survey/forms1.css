@@ -1,3 +1,9 @@
 .sv_complete_btn {
   background-color: blue !important;
 }
+
+input[value='Remove Applicant'] {
+  float: right;
+  margin-top: '-300px !important';
+
+}
