@@ -7,8 +7,8 @@ class App extends Component {
   render () {
     return (
       <div className="App">
-        {/* <FormS1></FormS1> */}
-        <Names></Names>
+        <FormS1></FormS1>
+        {/* <Names></Names> */}
       </div>
     )
   }

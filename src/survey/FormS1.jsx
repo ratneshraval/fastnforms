@@ -142,12 +142,12 @@ export default class FormS1 extends Component {
     completeSurveyText: 'Save'
   };
 
-  onComplete (survey, options) {
+  onComplete(survey, options) {
     // Write survey results into database
     console.log('Survey results: ' + JSON.stringify(survey.data))
   }
 
-  render () {
+  render() {
     Survey.StylesManager
       .applyTheme('default')
     // Survey.Survey.
@@ -163,6 +163,13 @@ export default class FormS1 extends Component {
     const inputMaskQ = model.getQuestionByName('number')
     // inputMaskQ.mask = '(999)999-9999'
 
+    const initialData = {
+      number: '2332',
+      applicants: [
+        { first_name: 'sunil' },
+        { last_name: 'biradar' }
+      ]
+    }
     // debugger
     return (
       <React.Fragment >
@@ -172,7 +179,7 @@ export default class FormS1 extends Component {
             <Survey.Survey
               model={model}
               onComplete={this.onComplete}
-              data={{ number: '24545323' }}
+              data={initialData}
             />
 
           </Card>
