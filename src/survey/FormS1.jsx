@@ -3,6 +3,7 @@ import * as Survey from 'survey-react'
 import 'survey-react/survey.css'
 import './forms1.css'
 import { Button, InputMask, Card } from '@cwds/components'
+import { importInputMaskEx } from './InputMask'
 
 const myCss = {
   paneldynamic: {
@@ -27,6 +28,11 @@ export default class FormS1 extends Component {
         templateTitle: 'Applicant {paneldynamic.currentIndex}',
         useDisplayValuesInTitle: true,
         templateElements: [
+          {
+            type: 'html',
+            name: 'none',
+            html: '<hr>'
+          },
           {
             type: 'dropdown',
             name: 'prefix',
@@ -58,12 +64,9 @@ export default class FormS1 extends Component {
       },
       {
         name: 'number',
-        type: 'text',
-        inputMask: 'phone',
-        inputType: 'tel',
-        renderAs: 'InputMask',
+        type: 'InputMaskEx',
+        renderAs: 'InputMaskEx',
         title: 'Phone Number',
-        inputFormat: '(999)999-9999',
         // isRequired: true,
         // validators: [{ 'type': 'numeric' }],
         width: '30%',
@@ -142,17 +145,20 @@ export default class FormS1 extends Component {
     completeSurveyText: 'Save'
   };
 
-  onComplete(survey, options) {
+  onComplete (survey, options) {
     // Write survey results into database
     console.log('Survey results: ' + JSON.stringify(survey.data))
   }
 
-  render() {
+  render () {
     Survey.StylesManager
       .applyTheme('default')
     // Survey.Survey.
     // Survey.Survey.cssType = 'bootstrap'
-    Survey.CustomWidgetCollection.Instance.addCustomWidget(InputMask, 'InputMask')
+    // Survey.CustomWidgetCollection.Instance.addCustomWidget(InputMask, 'InputMask')
+    // Survey.CustomWidgetCollection.Instance.addCustomWidget(InputMaskEx)
+
+    importInputMaskEx(Survey)
     // const inputmaskFormat = Survey.Survey.getque
 
     const styles = {
