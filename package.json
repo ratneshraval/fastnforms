@@ -7,6 +7,8 @@
     "@jsonforms/core": "^2.2.0",
     "@jsonforms/material-renderers": "^2.2.0",
     "@jsonforms/react": "^2.2.0",
+    "@material-ui/core": "^3.9.2",
+    "formik": "^1.5.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
