@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from 'react'
-import { Button, InputMask } from '@cwds/components'
+import { Button } from '@cwds/components'
 import { Formik, Field, Form, ErrorMessage, FieldArray } from 'formik'
 import { FieldWithError } from './FieldWithError'
+
+import * as Yup from 'yup'
 
 import GridItem from './GridItem'
 import GridContainer from './GridContainer'
 import Card from './Card'
 import CardBody from './CardBody'
-import CardHeader from './CardHeader'
 
 const initialV = {
   first_name: 'john',
@@ -20,7 +21,7 @@ const initialV = {
       preferred: true
     },
     {
-      number: '777',
+      number: '77',
       type: 'w',
       preferred: false,
       _destroy: true
@@ -37,6 +38,24 @@ const newPhone = {
   type: 'c',
   preferred: false
 }
+
+const validations = Yup.object().shape({
+  first_name: Yup.string().required('required'),
+  last_name: Yup.string().required('required'),
+  email: Yup.string().email(),
+  phones: Yup.array()
+    .of(
+      Yup.object().shape({
+        _destroy: Yup.boolean(),
+        number: Yup.string()
+          .when('_destroy', {
+            is: true,
+            otherwise: Yup.string().min(3, 'too short').required('Required')
+          })
+      })
+    )
+})
+
 export default class Formff1 extends Component {
   constructor (props) {
     super(props)
@@ -68,6 +87,7 @@ export default class Formff1 extends Component {
               onSubmit={(values, actions) => {
                 this.handleSubmit(values, actions)
               }}
+              validationSchema={validations}
             >
               {({ values, errors, status, touched, isSubmitting }) => (
                 <Form>
@@ -115,6 +135,7 @@ export default class Formff1 extends Component {
                               ({ push, remove, insert, unshift, pop, form, replace }) =>
                                 (
                                   <Fragment>
+                                    debugger
                                     {/* {values.phones.map((phone, index) => ( */}
                                     {values.phones.map((phone, index) => (
                                       values.phones[index]._destroy
@@ -131,7 +152,6 @@ export default class Formff1 extends Component {
                                               <option label='Home' value='h'>Home1</option>
                                               <option label='Work' value='w'>Work1</option>
                                             </Field>
-                                            <ErrorMessage name={`phones[${index}].type`} component="div" />
                                           </GridItem>
                                           <GridItem xs={12} sm={12} md={3}>
                                             <Field
@@ -146,12 +166,12 @@ export default class Formff1 extends Component {
 
                                           </GridItem>
                                           <GridItem xs={12} sm={12} md={3}>
-                                            <button onClick={() => { values.phones[index]._destroy = true }}>X</button>
+                                            <button type='button' onClick={() => { values.phones[index]._destroy = true }}>X</button>
                                           </GridItem>
                                         </GridContainer>
                                     ))
                                     }
-                                    <button onClick={() => push(newPhone)}>+</button>
+                                    <button type='button' onClick={() => push(newPhone)}>+</button>
                                   </Fragment>
                                 )
                             } />
@@ -177,10 +197,8 @@ export default class Formff1 extends Component {
         </div >
 
         <br />
-
         <br />
         <br />
-
       </React.Fragment >
     )
   }
